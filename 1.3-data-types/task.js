@@ -38,7 +38,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     //ежемесячно, то вот рабочая формула:
 
     let Total = S *(1 + (n + 1) / 2 * P / 100);
-     return "Total = " + rdns(Total,2) + ": за " + n + " месяцев";
+     return "Total = " + rdns(Total,2) + ": за " + n + " месяцев (сегодняшний месяц не учитывается!)";
 }
 
 function getGreeting(name) {
