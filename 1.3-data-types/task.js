@@ -9,7 +9,7 @@ function rdns(a,k) {
 function monthDiffrent(data1, data2) {
     let months;
     months = (data2.getFullYear() - data1.getFullYear()) * 12;
-    months -= data1.getMonth(); //данный месяц не считаем
+    months -= data1.getMonth(); 
     months += data2.getMonth();
     return months <= 0 ? 0 : months;
 }
@@ -59,6 +59,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
 function getGreeting(name) {
      let hello = `Привет, мир! Меня зовут `;
-     if ((!name) || (name.trim().length == 0)) return `Привет, мир! Меня зовут Аноним`;
-     else  return `Привет, мир! Меня зовут ${name}`;
+     
+   hello += ((!name) || (name.trim().length == 0)) ? ` Аноним` : `${name}`;
+    return hello;
 }
