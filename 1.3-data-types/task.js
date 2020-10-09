@@ -27,21 +27,23 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
         amount = Number.parseInt(amount);
     } 
 
-    let P = percent/12;
+    let P = (percent / 12) /100;
     let now = new Date(); //Сегодняшняя дата. 
     let n = monthDiffrent(now, date); //подсчет месяцев между датами. Текущий месяц не считается!!!
     let S = amount - contribution; //Тело кредита
     
-    //let Total = S * (P + P / ( Math.pow((1 + P),n)-1));
+    let Total = S * (P + P / ( Math.pow((1 + P),n)-1));
     //Формула, данная в задании (вот она, сверху) не работает.
     //Если решить задачу с равномерным уменьшением остатком по кредиту
     //ежемесячно, то вот рабочая формула:
 
-    let Total = S *(1 + (n + 1) / 2 * P / 100);
-     return "Total = " + rdns(Total,2) + ": за " + n + " месяцев (сегодняшний месяц не учитывается!)";
+   // let Total = S *(1 + (n + 1) / 2 * P / 100);
+    // return "Total = " + rdns(Total,2) + ": за " + n + " месяцев (сегодняшний месяц не учитывается!)";
+    return rdns(Total,2);
 }
 
 function getGreeting(name) {
-    // код для задачи №2 писать здесь
-    return `Привет, мир! Меня зовут ${name}`;
+     // код для задачи №2 писать здесь
+     if ((!name) || (name.trim().length == 0)) return `Привет, мир! Меня зовут Аноним`;
+     else  return `Привет, мир! Меня зовут ${name}`;
 }
