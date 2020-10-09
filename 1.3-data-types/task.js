@@ -60,6 +60,6 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 function getGreeting(name) {
      let hello = `Привет, мир! Меня зовут `;
      
-   hello += ((!name) || (name.trim().length == 0)) ? ` Аноним` : `${name}`;
+   hello += ((name !== 'null') || (name !== 'undefined') || (name.trim().length == 0)) ? ` Аноним` : `${name}`;
     return hello;
 }
