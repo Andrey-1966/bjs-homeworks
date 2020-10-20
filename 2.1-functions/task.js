@@ -26,29 +26,8 @@ function getSolutions(a, b, c) {
 function showSolutionsMessage(a, b, c) {
 	let result = getSolutions(a, b, c);
 	
-		let equls = 'Вычисляем корни квадратного уравнения: ';
-	if ( a != 0) {
-		if ((a != 1) && (a !=(-1))) equls = `${a}x²`;
-		else {
-			if (a == -1) equls += `-x²`;
-			else equls += `x²`;
-		}
-	}
-	if (b != 0) {
-		if ((b != 1) && (b !=(-1))) {
-			 if (b > 0) equls += `+ ${b}x`;
-			 else equls += `- ${Math.abs(b)}x`;
-       } else {
-       	if (b == -1)  equls += `- x`;
-       	else equls += `+ x`;
-       }
-	}
-	
-	if (c != 0) {
-		
-			 if (c > 0) equls += `+ ${c}`;
-			 else equls += `- ${Math.abs(c)}`;
-       }
+	let equls = 'Вычисляем корни квадратного уравнения: ';
+	equls += `${a}x^2+${b}x+${c}`;
 	console.log(equls );
 	console.log(`Значение дискриминанта: ${result.D}`);
 	if (result.D > 0 ) {
@@ -82,17 +61,20 @@ function getAverageMark(marks) {
 
 
 function getAverageScore(data) {
-	let average = 0;
-	let i = 0;
-	  for (let subj in data) {
-	  	average = average + getAverageMark(data[subj]);
-		i++;
-	  	console.log(`${subj} : ${getAverageMark(data[subj])}`);
-    }
-    if (i > 0) { 
-    average = average/i;	
-     console.log(`average : ${average}`);
- } else  console.log(`average : 0`);
+	let res ={};
+	let aver = 0;
+	let i=0;
+	for (let subj in data) {
+          res[subj] = getAverageMark(data[subj]);
+          aver = aver + getAverageMark(data[subj]);
+          i++;
+	 	}
+	if (i > 0) { 
+        aver = aver / i;
+    } else aver = 0;
+    res['average'] = aver;	
+	return res;
+ 
 }
 
 console.log(getAverageScore( {
