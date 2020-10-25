@@ -1,83 +1,88 @@
-"use strict";
-
-function redd(a,b,c) {
-	return 2;
-}
-
-function getSolutions(a, b, c) {
-	let D = Math.pow(b,2) - 4 * a * c;
-    let roots = [];
-
-	if (D == 0) {
-      roots[0] = -b / (2*a); 
+class PrintEditionItem {
+	constructor(name,releaseDate,pagesCount) {
+	     this.name = name;
+	     this.releaseDate = releaseDate;
+	     this.pagesCount = pagesCount;
+	     this.state = 100;
+	     this.type = null;
 	}
 	
-	if ( D  > 0 ) {
-		roots[0] = (-b - Math.sqrt(D) ) / (2 * a);
-		roots[1] = (-b + Math.sqrt(D) ) / (2 * a);
+	fix() {
+		return this.state * 1.5;
 	}
-
-	return {
-		D: D, 
-		roots: roots
-	};
-}
-
-function showSolutionsMessage(a, b, c) {
-	let result = getSolutions(a, b, c);
 	
-	let equls = 'Вычисляем корни квадратного уравнения: ';
-	equls += `${a}x^2+${b}x+${c}`;
-	console.log(equls );
-	console.log(`Значение дискриминанта: ${result.D}`);
-	if (result.D > 0 ) {
-		console.log(`Уравнение имеет два корня. X₁ = ${result.roots[0]}, X₂ = ${result.roots[1]}`);
+	set state(state) {
+		this._state = state;
+		if (state < 0) this._state = 0;
+		if (state > 100) this._state = 100;
 	}
-	if (result.D == 0 ) {
-		console.log(`Уравнение имеет два ОДИНАКОВЫХ корня. X₁ = ${result.roots[0]}`);
+
+	get state() {
+		return this._state;
 	}
-	if (result.D < 0 ) {
-		console.log(`Уравнение не имеет ДЕЙСТВИТЕЛЬНЫХ корней`);
-	}
-	//return `Вычисляем корни квадратного уравнения ${result.D} ${result.roots}`;
-    
+
 }
 
-showSolutionsMessage(1, 1, -12);
-showSolutionsMessage(1, 2, 3);
+const sherlock = new PrintEditionItem("Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе", 2019, 1008);
 
-//Задание 2
-//=======================================================
-function getAverageMark(marks) {
-  let s = 0;
-  if (marks.length > 0) {
-	  for (let i=0; i < marks.length; i++) {
-	  	s = s + marks[i];
-	   }
-	   return s/marks.length;
-  } else return 0;
+console.log(sherlock.releaseDate); //2019
+console.log(sherlock.state); //100
+sherlock.fix();
+console.log(sherlock.state); //100
+
+class Magazine extends PrintEditionItem {
+	constructor(name,releaseDate,pagesCount) {
+	     super(name,releaseDate,pagesCount);
+	     this.type = "magazine";
+	}
 }
 
-
-
-function getAverageScore(data) {
-	let res ={};
-	let aver = 0;
-	let i=0;
-	for (let subj in data) {
-          res[subj] = getAverageMark(data[subj]);
-          aver = aver + getAverageMark(data[subj]);
-          i++;
-	 	}
-	if (i > 0) { 
-        aver = aver / i;
-    } else aver = 0;
-    res['average'] = aver;	
-	return res;
- 
+class Book extends PrintEditionItem {
+	constructor(name,releaseDate,pagesCount,author) {
+	     super(name,releaseDate,pagesCount);
+	     this.author = author;
+	     this.type = "book";
+	}
 }
 
-console.log(getAverageScore( {
-	algebra:[2,4,5,2,3,4],
-	geometry:[2,4,5]
-}));
+class NovelBook extends Book {
+	constructor(name,releaseDate,pagesCount,author) {
+		super(name,releaseDate,pagesCount);
+		this.type = "novel";
+	}
+}
+
+class FantasticBook extends Book {
+	constructor(name,releaseDate,pagesCount,author) {
+		super(name,releaseDate,pagesCount);
+		this.type = "fantastic";
+	}
+}
+
+class DetectiveBook extends Book {
+	constructor(name,releaseDate,pagesCount,author) {
+		super(name,releaseDate,pagesCount);
+		this.type = "detective";
+	}
+}
+
+const picknick = new FantasticBook("Аркадий и Борис Стругацкие", "Пикник на обочине", 1972, 168);
+
+console.log(picknick.author); //"Аркадий и Борис Стругацкие"
+picknick.state = 10;
+console.log(picknick.state); //10
+picknick.fix();
+console.log(picknick.state); //15
+
+//===== ЗАДАНИЕ 2
+
+class Library {
+	constructor(name) {
+		this.name = name;
+		this.books = [];
+	}
+
+	addBook(book) {
+
+	}
+}
