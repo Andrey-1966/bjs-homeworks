@@ -1,15 +1,17 @@
 function parseCount(str) {
-if (isNaN(str)) throw new Error('Недопустимое значение');
+if (isNaN(str)) {
+	throw new Error('Недопустимое значение');
+}
 return Number.parseInt(str);
 }
 
 function validateCount(str) {
 try {
-	parseCount(str);
+	return parseCount(str);
 } catch {
-	return false;
+	throw new Error('Недопустимое значение');
 }
-return parseCount(str);
+
 }
 
 //Задача 2
@@ -29,7 +31,7 @@ class Triangle {
 
 	getArea() {
 		let p = this.getPerimeter() /2;
-		return Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
+		return +Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(2);
 	}
 
 }
@@ -38,11 +40,10 @@ class Triangle {
 
 function getTriangle(a,b,c) {
 	try {
-      tris = new Triangle(a,b,c);
+      return new Triangle(a,b,c);
 	} catch(e) {
       throw new Error('Ошибка! Треугольник не существует');
+      
 	}
-	return tris;
+	//return tris;
 }
-
-//console.log(getTriangle(3,4,5));
