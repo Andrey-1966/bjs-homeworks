@@ -7,9 +7,9 @@ return Number.parseInt(str);
 
 function validateCount(str) {
 try {
-	return parseCount(str);
-} catch {
-	throw new Error('Недопустимое значение');
+	return parseCount(str); //аналог лекционного divaider(a,b)!!!!
+} catch(e) {
+	console.log(e.massage);
 }
 
 }
@@ -41,9 +41,12 @@ class Triangle {
 function getTriangle(a,b,c) {
 	try {
       return new Triangle(a,b,c);
-	} catch(e) {
-      throw new Error('Ошибка! Треугольник не существует');
-      
+	} catch {
+      return { 
+      	getArea() {return "Ошибка! Треугольник не существует"},
+        getPerimeter() {return "Ошибка! Треугольник не существует"}
 	}
 	//return tris;
 }
+}
+getTriangle(3,4,8);
