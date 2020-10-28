@@ -8,7 +8,7 @@ class PrintEditionItem {
 	}
 	
 	fix() {
-		return this.state * 1.5;
+		return this.state *= 1.5;
 	}
 	
 	set state(state) {
@@ -83,6 +83,6 @@ class Library {
 	}
 
 	addBook(book) {
-
+     if (book.state > 30) this.book.push(book);
 	}
 }
