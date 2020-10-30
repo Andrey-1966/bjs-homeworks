@@ -1,3 +1,5 @@
+'use strict';
+
 class PrintEditionItem {
 	constructor(name,releaseDate,pagesCount) {
 	     this.name = name;
@@ -47,26 +49,26 @@ class Book extends PrintEditionItem {
 
 class NovelBook extends Book {
 	constructor(name,releaseDate,pagesCount,author) {
-		super(name,releaseDate,pagesCount);
+		super(name,releaseDate,pagesCount,author);
 		this.type = "novel";
 	}
 }
 
 class FantasticBook extends Book {
 	constructor(name,releaseDate,pagesCount,author) {
-		super(name,releaseDate,pagesCount);
+		super(name,releaseDate,pagesCount,author);
 		this.type = "fantastic";
 	}
 }
 
 class DetectiveBook extends Book {
 	constructor(name,releaseDate,pagesCount,author) {
-		super(name,releaseDate,pagesCount);
+		super(name,releaseDate,pagesCount,author);
 		this.type = "detective";
 	}
 }
 
-const picknick = new FantasticBook("Аркадий и Борис Стругацкие", "Пикник на обочине", 1972, 168);
+const picknick = new FantasticBook("Пикник на обочине", 1972, 168,"Аркадий и Борис Стругацкие");
 
 console.log(picknick.author); //"Аркадий и Борис Стругацкие"
 picknick.state = 10;
