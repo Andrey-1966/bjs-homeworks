@@ -1,90 +1,73 @@
-'use strict';
-
-class PrintEditionItem {
-	constructor(name,releaseDate,pagesCount) {
-	     this.name = name;
-	     this.releaseDate = releaseDate;
-	     this.pagesCount = pagesCount;
-	     this.state = 100;
-	     this.type = null;
-	}
-	
-	fix() {
-		return this.state *= 1.5;
-	}
-	
-	set state(state) {
-		this._state = state;
-		if (state < 0) this._state = 0;
-		if (state > 100) this._state = 100;
-	}
-
-	get state() {
-		return this._state;
-	}
-
+//Задание 2
+//-------------------------------------------
+function sleep(milliseconds) 
+{
+  let e = new Date().getTime() + milliseconds;
+  while (new Date().getTime() <= e) {}
 }
 
-const sherlock = new PrintEditionItem("Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе", 2019, 1008);
-
-console.log(sherlock.releaseDate); //2019
-console.log(sherlock.state); //100
-sherlock.fix();
-console.log(sherlock.state); //100
-
-class Magazine extends PrintEditionItem {
-	constructor(name,releaseDate,pagesCount) {
-	     super(name,releaseDate,pagesCount);
-	     this.type = "magazine";
-	}
+function sum(...args) {
+  // Замедление на половину секунды.
+  sleep(100); // Можно использовать другое значение замедления.
+  return args.reduce((sum, arg) => {
+    return sum += +arg;
+  }, 0);
 }
 
-class Book extends PrintEditionItem {
-	constructor(name,releaseDate,pagesCount,author) {
-	     super(name,releaseDate,pagesCount);
-	     this.author = author;
-	     this.type = "book";
-	}
+function compareArrays( arr1, arr2 ) {
+	if ( (arr1.length === arr2.length) && (arr1.every((n, i) => n === arr2[i])) )
+		return true;
+	else return false;
 }
 
-class NovelBook extends Book {
-	constructor(name,releaseDate,pagesCount,author) {
-		super(name,releaseDate,pagesCount,author);
-		this.type = "novel";
-	}
-}
 
-class FantasticBook extends Book {
-	constructor(name,releaseDate,pagesCount,author) {
-		super(name,releaseDate,pagesCount,author);
-		this.type = "fantastic";
-	}
-}
+function memorize(fn, limit,...args) {
+  let cache = [];
+  let check = false;
+  //args - массив из n фкгументов
+  //Наш cache - это массив объектов 
+  //cache = [
+  //       {arg[0]:args[0],..,arg[n]:args[n], result:fn}, -1-й объект
+  //       {arg[0]:args[0],..,arg[n]:args[n], result:fn}, -2-й объект
+  //       ......
+  //       {arg[0]:args[0],..,arg[n]:args[n], result:fn},  - limit-объект
+  //       ]
 
-class DetectiveBook extends Book {
-	constructor(name,releaseDate,pagesCount,author) {
-		super(name,releaseDate,pagesCount,author);
-		this.type = "detective";
-	}
-}
+  for (let k=0; k < cache.length; k++) { //пробегаем объекты массива
+  	let ind = 0; //счетчик совпадений агрументов args со значениями свойств объекта
 
-const picknick = new FantasticBook("Пикник на обочине", 1972, 168,"Аркадий и Борис Стругацкие");
+      for (key in cache[k]) {     //пробегаем по объекту k
+      	  //если очередной аргумент args совпадает 
+      	  //со значением свойства объекта
+      	  //то увеличиваем счетчик на 1
+  	     if (cache[k][key] ===args[key]) ind++; 
 
-console.log(picknick.author); //"Аркадий и Борис Стругацкие"
-picknick.state = 10;
-console.log(picknick.state); //10
-picknick.fix();
-console.log(picknick.state); //15
-
-//===== ЗАДАНИЕ 2
-
-class Library {
-	constructor(name) {
-		this.name = name;
-		this.books = [];
-	}
-
-	addBook(book) {
-     if (book.state > 30) this.book.push(book);
-	}
+       }
+       //если число совпадений равно числу агрументов, то 
+       // мы нашли объект, значения свойств которого совпадают
+       // с массивом аргументов. Тогда мы обрываем проверку дальнейшую,
+       //и запоминаем номер объекта k в переменную ind (не пропадать же ей зря?)
+       if (ind == args.length) { check =true; ind = k; break;} 
+  }
+  
+  //И выводим результат
+   if (check) {
+     return cashe[ind].result;   
+   } else { 
+   	//если все свойства объектов не свопали с массивом аргументов,
+   	//то производим вычисления:
+   	 let result = fn();
+   	 
+   	 //если число объектов не превышает допустимого значения, 
+   	 // добавляем новый объект в cache. Обзовем его mas:
+     let mas = `{`;   	 
+     if (cache.length < limit) {
+       for (let i=0;i<args.length;i++) {
+       	mas += `${arg[i]}:${args[i]},`
+       }
+       mas += `result: ${result} }`;
+       cache.push(mas); //Добавили 
+       return result;   //и возратили результат
+     }
+    }
 }
