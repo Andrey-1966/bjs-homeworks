@@ -85,6 +85,34 @@ class Library {
 	}
 
 	addBook(book) {
-     if (book.state > 30) this.book.push(book);
+     if (book.state > 30) this.books.push(book);
 	}
+
+	findBookBy(type, value) {
+      //проверяем, есть ли такой элемент (функция some)
+      if ( this.books.some(val => val[type] === value)) {
+      	return this.books.find(val => val[type] === value)[type];
+	} else return null;
 }
+   
+   giveBookByName(bookName) {
+   	let ind = this.books.findIndex(i => i.name === bookName);
+    if ( ind > -1) {
+   	 	this.books.splice(ind, 1); //Удаляем из массива 1 элемент
+   	 	return bookName;
+   	 } else return null;
+   }
+
+
+}
+
+
+const library = new Library("Библиотека имени Ленина");
+library.addBook(new Magazine("Мурзилка", 1924, 60));
+library.addBook(new FantasticBook("Аркадий и Борис Стругацкие", "Пикник на обочине", 1972, 168));
+
+console.log("1 "+library.findBookBy("name", "Пикник на обочине"));
+console.log("2 "+library.findBookBy("name", "Кот"));
+
+console.log(library.giveBookByName("Кот"));
+console.log(library.giveBookByName("Пикник на обочине"));
