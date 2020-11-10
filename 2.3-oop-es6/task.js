@@ -89,7 +89,6 @@ class Library {
 	}
 
 	findBookBy(type, value) {
-      //проверяем, есть ли такой элемент (функция some)
       if ( this.books.some(val => val[type] === value)) {
       	let findbook = this.books.find(val => val[type] === value);
       	return findbook.author + ', ' + findbook.name + ', ' + findbook.releaseDate + ', ' + findbook.pagesCount;
@@ -101,7 +100,10 @@ class Library {
     if ( ind > -1) {
    	 	let findbook = this.books[ind];
    	 	this.books.splice(ind, 1); //Удаляем из массива 1 элемент
-   	 	return findbook.author + ', ' + findbook.name + ', ' + findbook.releaseDate + ', ' + findbook.pagesCount;
+   	 	//Выводим  объект:
+   	 	return findbook;
+       
+   	 	//return findbook.author + ', ' + findbook.name + ', ' + findbook.releaseDate + ', ' + findbook.pagesCount;
    	 } else return null;
    }
 
