@@ -90,8 +90,9 @@ class Library {
 
 	findBookBy(type, value) {
       if ( this.books.some(val => val[type] === value)) {
-      	let findbook = this.books.find(val => val[type] === value);
-      	return findbook.author + ', ' + findbook.name + ', ' + findbook.releaseDate + ', ' + findbook.pagesCount;
+      let ind = this.books.findIndex(i => i[type] === value);
+      return this.books[ind];
+     
 	} else return null;
 }
    
